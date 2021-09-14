@@ -4,7 +4,7 @@ import {Request, Response} from "express";
 import {postImageHandler} from "../post/postImageHandler";
 import {getHandler} from "../get/get";
 
-router.post('/', (request: any, response: Response) => {
+router.post('/',(request: any, response: Response) => {
     if (request.query.page > 3) {
         response.send("server haven't this page")
     } else {
@@ -20,7 +20,7 @@ router.post('/', (request: any, response: Response) => {
 })
 
 
-router.get('/gallery', (request: Request, response: Response) => {
+router.get('/', (request: Request, response: Response) => {
     let result = getHandler(request);
 
     response.send(result);
