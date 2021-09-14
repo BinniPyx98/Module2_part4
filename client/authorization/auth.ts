@@ -3,12 +3,14 @@ import {getGallery} from "../gallery/get_gallery.js";
 /*
 Catch click on button "LogIn" and start function LogIn
  */
-let clickOnButtonLogIn: HTMLElement = document.getElementById('logIn')
+let clickOnButtonLogIn: HTMLElement = document.getElementById('logIn');
 
 if (clickOnButtonLogIn) {
     clickOnButtonLogIn.addEventListener('click', ev => {
         ev.preventDefault();
-        (async ()=>{await LogIn()})()
+        (async () => {
+            await LogIn()
+        })();
     })
 }
 
@@ -19,7 +21,7 @@ async function LogIn(): Promise<void> {
     let result: boolean = await control_validation_authorization();
     if (result) {
         hidden_auth_form();
-        getGallery()
+        await getGallery();
         setTimeout(reset_gallery, 60000);
     }
 }
@@ -45,13 +47,14 @@ async function control_validation_authorization(): Promise<boolean> {
 
 function getElement(tagId: string): string | void {
     let Element: HTMLInputElement = <HTMLInputElement>document.getElementById(tagId);
+
     return Element ? Element.value : alert("don't find tag");
 }
 
 async function authorization(userEmail: string, userPassword: string): Promise<boolean> {
 
-    let resolve = await sendAuthData(userEmail, userPassword)
-    let token = await resolve.json()
+    let resolve = await sendAuthData(userEmail, userPassword);
+    let token = await resolve.json();
 
     if (resolve.status === 200) {
         let result: string = token;
@@ -80,18 +83,15 @@ async function sendAuthData(userEmail: string, userPassword: string) {
         },
         body: userJsonDate
     })
+
     return resolve
 }
 
 function save_token(token: any): void {
     localStorage.setItem('tokenData', token.token);
-    console.log(token.token)
+    console.log(token.token);
 
 }
-
-
-
-
 
 
 function removeToken(): void {

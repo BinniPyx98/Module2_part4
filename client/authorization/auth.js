@@ -15,7 +15,9 @@ let clickOnButtonLogIn = document.getElementById('logIn');
 if (clickOnButtonLogIn) {
     clickOnButtonLogIn.addEventListener('click', ev => {
         ev.preventDefault();
-        (() => __awaiter(void 0, void 0, void 0, function* () { yield LogIn(); }))();
+        (() => __awaiter(void 0, void 0, void 0, function* () {
+            yield LogIn();
+        }))();
     });
 }
 /*
@@ -26,7 +28,7 @@ function LogIn() {
         let result = yield control_validation_authorization();
         if (result) {
             hidden_auth_form();
-            getGallery();
+            yield getGallery();
             setTimeout(reset_gallery, 60000);
         }
     });

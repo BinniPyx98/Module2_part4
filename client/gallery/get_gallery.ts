@@ -2,7 +2,7 @@
 Загрузка изображения. Ловим клик по кнопке Upload и запускаем функцию Upload
  */
 let inputFile = <HTMLInputElement>document.getElementById('uploadFile');
-let clickOnButtonUpload: HTMLElement = document.getElementById('uploadButton')
+let clickOnButtonUpload: HTMLElement = document.getElementById('uploadButton');
 
 if (clickOnButtonUpload) {
     clickOnButtonUpload.addEventListener('click', ev => {
@@ -15,10 +15,10 @@ if (clickOnButtonUpload) {
 
 async function Upload(file: any) {
     let formData = new FormData();
-    formData.append('img', file.files[0])
+    formData.append('img', file.files[0]);
 
     if (!file) {
-        console.log('not file')
+        console.log('not file');
     } else {
         let resolve = await fetch(`http://localhost:5400/gallery?page=${getPage()}`, {
             method: 'POST',
@@ -48,7 +48,7 @@ export async function getGallery(): Promise<void> {
     })
 
     let galleryObject = null;
-    let data = await resolve.json()
+    let data = await resolve.json();
 
     if (data) {
         galleryObject = data;
@@ -116,11 +116,11 @@ function setPage(num: string): void {
 /*
 Catch click button "Next"
  */
-let clickButtonNext = document.getElementById('next')
+let clickButtonNext = document.getElementById('next');
 
 if (clickButtonNext) {
     clickButtonNext.addEventListener('click', ev => {
-        ev.preventDefault()
+        ev.preventDefault();
         let page: number = Number(getPage());
 
         if (page >= 3) {
@@ -130,7 +130,7 @@ if (clickButtonNext) {
         } else {
             updateURL(page + 1);
             setPage(String(page + 1));
-            (() => getGallery())()
+            (() => getGallery())();
         }
     })
 
@@ -139,11 +139,11 @@ if (clickButtonNext) {
 /*
 Catch click button "Back"
  */
-let clickButtonBack = document.getElementById('back')
+let clickButtonBack = document.getElementById('back');
 
 if (clickButtonBack) {
     clickButtonBack.addEventListener('click', ev => {
-        ev.preventDefault()
+        ev.preventDefault();
         let page: number = Number(getPage());
 
         if (page === 1) {
@@ -153,7 +153,7 @@ if (clickButtonBack) {
         } else {
             updateURL(page - 1);
             setPage(String(page - 1));
-            (() => getGallery())()
+            (() => getGallery())();
         }
     })
 }
