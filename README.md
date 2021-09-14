@@ -9,6 +9,7 @@
 
 
    <h4>Запуск проекта</h4>
+   <p style="text-indent: 25px;">Запустить npm install в папке server</p>
 <p style="text-indent: 25px;">Запустить файл server.ts в папке server.</p>
 Если обратиться к адресу http://localhost:5400/ будет получен index.html
 <p style="text-indent: 25px;">Доступ к sawgger http://localhost:5400/api-docs/</p>
