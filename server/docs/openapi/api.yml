@@ -33,6 +33,31 @@ paths:
                 $ref: '#/components/schemas/Token'
         '401':
            description: Bad auth
+        '404':
+           description: page not found
+
+  /gallery:
+    get:
+      summary: return gallery
+      parameters:
+        - name: page
+          in: query
+          description: page number
+          schema:
+            items:
+              type: string
+        - name: Authorization
+          in: header
+          schema:
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+        '401':
+           description: not auth
+        '404':
+            description: page not found
 
 
 components:
@@ -55,24 +80,6 @@ components:
             
             
 
-#  /gallery:
-#    get:
-#      summary: return gallery
-#      parameters:
-#        - name: page
-#          in: query
-#          description: page number
-#          schema:
-#            items:
-#              type: string
-#        - name: Authorization
-#          in: header
-#          schema:
-#            items:
-#              type: string
-#      responses:
-#        '200':
-#          description: successful operation
 
 
 
