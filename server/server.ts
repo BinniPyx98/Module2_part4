@@ -30,7 +30,6 @@ app.use(fileUpload({}));
 
 app.use("/auth", auth);
 app.use("/", home);
-
 app.use("/gallery", gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
