@@ -4,9 +4,11 @@ import {Request, Response} from "express";
 import {postImageHandler} from "../src/uploadImage/postImageHandler.js";
 import {getHandler} from "../src/gallery/getGallery.js";
 
-router.post('/',(request: any, response: Response) => {
 
-    if (request.query.page > 3) {
+
+router.post('/',(request: Request, response: Response) => {
+
+    if (Number(request.query.page) > 3) {
         response.send("server haven't this page")
     } else {
         let result = postImageHandler(request);

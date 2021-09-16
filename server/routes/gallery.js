@@ -3,7 +3,7 @@ const router = express.Router();
 import { postImageHandler } from "../src/uploadImage/postImageHandler.js";
 import { getHandler } from "../src/gallery/getGallery.js";
 router.post('/', (request, response) => {
-    if (request.query.page > 3) {
+    if (Number(request.query.page) > 3) {
         response.send("server haven't this page");
     }
     else {
