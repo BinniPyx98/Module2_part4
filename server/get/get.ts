@@ -9,7 +9,7 @@ type GetHandler=string|{
     page:number,
     objects:Array<string>
 }
-export function getHandler(request: Request): GetHandler {
+export function getGalleryHandler(request: Request): GetHandler {
 
     try {
         let pageNumber = Number(request.query.page)
