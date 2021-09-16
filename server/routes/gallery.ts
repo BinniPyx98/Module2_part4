@@ -1,8 +1,8 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 import {Request, Response} from "express";
-import {postImageHandler} from "../src/uploadImage/postImageHandler";
-import {getHandler} from "../src/gallery/getGallery";
+import {postImageHandler} from "../src/uploadImage/postImageHandler.js";
+import {getHandler} from "../src/gallery/getGallery.js";
 
 router.post('/',(request: any, response: Response) => {
 
@@ -26,4 +26,4 @@ router.get('/', (request: Request, response: Response) => {
     console.log(result)
     response.send(result);
 })
-module.exports = router;
+export default router

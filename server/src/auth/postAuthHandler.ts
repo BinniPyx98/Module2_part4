@@ -1,7 +1,7 @@
 
 ///////////Post Handler
-const logger = require('../../logger/logger');
-import {checkUserAuthorizationData} from "./authorization";
+import logger from '../../logger/logger.js';
+import {checkUserAuthorizationData} from "./authorization.js";
 
 type AuthResult = string | {token:string} //string if error
 let authResult: AuthResult

@@ -1,5 +1,5 @@
-const logger = require('../../logger/logger');
-let fs = require('fs')
+import logger from'../../logger/logger.js';
+import fs from 'fs'
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
 

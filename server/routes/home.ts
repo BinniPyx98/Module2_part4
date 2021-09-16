@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-const config = require('config');
-const logger = require('../logger/logger');
-const express=require('express')
+import  config from 'config';
+import logger from '../logger/logger.js';
+import  express from'express'
 const router=express.Router()
 
 
@@ -12,4 +12,4 @@ router.get('/', (request: Request, response: Response) => {
 })
 
 
-module.exports=router;
+export default router

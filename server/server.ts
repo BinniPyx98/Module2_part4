@@ -1,19 +1,23 @@
 import {Response, Request, NextFunction} from "express";
 
-const swaggerUI = require("swagger-ui-express");
-const path = require('path');
-const YAML = require('yamljs');
+import * as swaggerUI from "swagger-ui-express";
+import * as path from 'path';
+import YAML from 'yamljs';
 
-let fileUpload = require('express-fileupload');
-const express = require('express');
-const config = require('config');
+import  fileUpload from 'express-fileupload';
+import express from 'express';
+import config from 'config';
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const auth = require('./routes/auth');
-const gallery = require('./routes/gallery');
-const home = require('./routes/home');
-const logger = require('./logger/logger');
+import auth from './routes/auth.js' ;
+import  gallery from './routes/gallery.js';
+import home from './routes/home.js';
+import logger from './logger/logger.js';
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, './docs/openapi/api.yml'));
@@ -59,4 +63,4 @@ function requestLogging(request: Request): void {
 ********************** Start server ***********************
  */
 
-module.exports=app
+export default app

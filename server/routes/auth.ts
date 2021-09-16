@@ -1,6 +1,6 @@
-import {postHandler} from "../src/auth/postAuthHandler";
+import {postHandler} from "../src/auth/postAuthHandler.js";
 import {Response, Request} from "express";
-const express=require('express')
+import express from 'express'
 const router=express.Router()
 
 
@@ -11,5 +11,4 @@ router.post('/', (request: Request, response: Response) => {
      response.send(result)
 })
 
-module.exports=router;
-
+export default router
