@@ -6,7 +6,7 @@ import {getHandler} from "../get/get";
 
 router.post('/',(request: any, response: Response) => {
     if (request.query.page > 3) {
-        response.send("server haven't this page")
+        response.send({errorMessage:"server haven't this page"})
     } else {
         let result = postImageHandler(request);
 
