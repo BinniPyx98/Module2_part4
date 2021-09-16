@@ -21,7 +21,7 @@ async function LogIn(): Promise<void> {
     let result: boolean = await control_validation_authorization();
     if (result) {
         hidden_auth_form();
-        await getGallery();
+        let a=await getGallery();
         setTimeout(reset_gallery, 60000);
     }
 }
@@ -63,7 +63,7 @@ async function authorization(userEmail: string, userPassword: string): Promise<b
         return true
     } else {
         let result: string = token;
-        console.log((result));
+        console.log(("error "+result));
 
         return false
     }

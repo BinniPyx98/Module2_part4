@@ -1,4 +1,4 @@
-# Создать работающую документацию на /gallery  для post и get запросов невозможно,
+# Создать работающую документацию на /gallery  для uploadImage и gallery запросов невозможно,
 # так как для работы с данным роутом в header нужно передать Authorization: token
 # swagger запрещает использовать опрератор Authorization, для решения конфликта
 # нужно использовать другой способ передачи токена
@@ -19,7 +19,7 @@ paths:
     post:
       summary: return token
       requestBody:
-        description: User auth data
+        description: User uploadImage data
         content:
           application/json:
             schema:
@@ -32,7 +32,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Token'
         '401':
-           description: Bad auth
+           description: Bad uploadImage
         '404':
            description: page not found
 
@@ -55,7 +55,7 @@ paths:
         '200':
           description: successful operation
         '401':
-           description: not auth
+           description: not uploadImage
         '404':
             description: page not found
 

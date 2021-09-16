@@ -9,6 +9,7 @@ const express = require('express');
 const config = require('config');
 
 
+
 const auth = require('./routes/auth');
 const gallery = require('./routes/gallery');
 const home = require('./routes/home');
@@ -34,7 +35,7 @@ app.use("/gallery", gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(express.static(config.get('ClientPath')));
-app.use('/img', express.static(__dirname + '/img'));
+app.use('/img', express.static( 'src/gallery/img'));
 
 function checkToken(request: Request, next: NextFunction, response: Response): void {
     if (request.headers.authorization === 'token') {
@@ -44,6 +45,7 @@ function checkToken(request: Request, next: NextFunction, response: Response): v
         response.send('Not authorization');
     }
 }
+
 
 function requestLogging(request: Request): void {
     logger.info('Method-' + JSON.stringify(request.method) + ' ' +
@@ -56,6 +58,5 @@ function requestLogging(request: Request): void {
 /*
 ********************** Start server ***********************
  */
-app.listen(5400, () => {
-    logger.info('Server running');
-})
+
+module.exports=app

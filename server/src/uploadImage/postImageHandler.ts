@@ -1,4 +1,4 @@
-const logger = require('../logger/logger');
+const logger = require('../../logger/logger');
 let fs = require('fs')
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
@@ -10,7 +10,7 @@ export function postImageHandler(request: any) {
     imageName = fileData.name
 
     if (fileData) {
-        logger.info('postImageHandler get img')
+        logger.info('postImageHandler gallery img')
         saveImg(galleryPageNumber, imageName, fileData.data)
         return true
     } else {

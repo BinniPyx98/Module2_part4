@@ -1,6 +1,6 @@
 //////Authorization
 type AuthResult = string | { token: string } //string if error
-const logger = require('./logger/logger');
+const logger = require('../../logger/logger');
 
 interface UserAuthDBData {
     [email: string]: string;
