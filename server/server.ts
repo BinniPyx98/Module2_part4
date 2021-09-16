@@ -58,7 +58,7 @@ function requestLogging(request: Request): void {
 /*
 ********************** Page not found ***********************
  */
-app.use((req, res) => {
+app.use((req:Request, res:Response) => {
     res.sendStatus(404)
 })
 
