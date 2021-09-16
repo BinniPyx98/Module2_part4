@@ -17,6 +17,8 @@ const logger = require('./logger/logger');
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, './docs/openapi/api.yml'));
 
+
+// Логгируем все запросы и проверяем наличие токена в запросах для которых он требуется
 app.use(express.json(), (request: Request, response: Response, next: NextFunction) => {
     requestLogging(request);
 
@@ -26,6 +28,7 @@ app.use(express.json(), (request: Request, response: Response, next: NextFunctio
         next();
     }
 });
+
 app.use(fileUpload({}));
 
 app.use("/auth", auth);
@@ -41,7 +44,7 @@ function checkToken(request: Request, next: NextFunction, response: Response): v
         next();
     } else {
         logger.info('Not authorization');
-        response.send('Not authorization');
+        response.send({errorMessage:'Not authorization'});
     }
 }
 
@@ -52,6 +55,12 @@ function requestLogging(request: Request): void {
         'Headers-' + JSON.stringify(request.headers));
 }
 
+/*
+********************** Page not found ***********************
+ */
+app.use((req, res) => {
+    res.sendStatus(404)
+})
 
 /*
 ********************** Start server ***********************

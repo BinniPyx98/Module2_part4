@@ -3,10 +3,10 @@
 const logger = require('../logger/logger');
 import {checkUserAuthorizationData} from "../authorization";
 
-type AuthResult = string | {token:string} //string if error
+type AuthResult = {errorMessage:"authorization error"}| { token: string }
 let authResult: AuthResult
 
-export  function postHandler(request: any ) {
+export  function postAuthHandler(request: any ) {
 
     let authData=request.body
     console.log(authData)

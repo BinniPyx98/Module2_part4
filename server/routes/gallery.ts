@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 import {Request, Response} from "express";
 import {postImageHandler} from "../post/postImageHandler";
-import {getHandler} from "../get/get";
+import {getGalleryHandler} from "../get/get";
 
 router.post('/',(request: any, response: Response) => {
     if (request.query.page > 3) {
-        response.send("server haven't this page")
+        response.send({errorMessage:"server haven't this page"})
     } else {
         let result = postImageHandler(request);
 
@@ -21,7 +21,7 @@ router.post('/',(request: any, response: Response) => {
 
 
 router.get('/', (request: Request, response: Response) => {
-    let result = getHandler(request);
+    let result = getGalleryHandler(request);
 
     response.send(result);
 })

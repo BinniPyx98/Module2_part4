@@ -1,5 +1,5 @@
 //////Authorization
-type AuthResult = string | { token: string } //string if error
+type AuthResult = {errorMessage:"authorization error"}| { token: string }
 const logger = require('./logger/logger');
 
 interface UserAuthDBData {
@@ -17,17 +17,18 @@ export function checkUserAuthorizationData(authData: any): AuthResult {
     let userPasswordFromQuery = userDataFromQuery.password
     let userEmailFromQuery = userDataFromQuery.email
 
-    let emailDbStatus = checkEmailInDB(userEmailFromQuery)
-    let passwordDbStatus = checkPasswordInDB(userPasswordFromQuery, userEmailFromQuery)
+    let emailDbStatus = checkEmailInDB(userEmailFromQuery) //Совпадает ли email
+    let passwordDbStatus = checkPasswordInDB(userPasswordFromQuery, userEmailFromQuery)//Совпадает ли password
 
-    let authorizationData = passwordDbStatus && emailDbStatus
-    if (authorizationData == true) {
+    let authorizationStatus = passwordDbStatus && emailDbStatus
+
+    if (authorizationStatus == true) {
         logger.info('successful authorization')
         return {token: "token"}
 
     } else {
         logger.info('authorization error')
-        return "authorization error"
+        return {errorMessage:"authorization error"}
     }
 }
 

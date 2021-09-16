@@ -1,4 +1,4 @@
-import {postHandler} from "../post/postAuthHandler";
+import {postAuthHandler} from "../post/postAuthHandler";
 import {Response, Request} from "express";
 const express=require('express')
 const router=express.Router()
@@ -6,7 +6,7 @@ const router=express.Router()
 
 
 router.post('/', (request: Request, response: Response) => {
-    let result = JSON.parse(postHandler(request))
+    let result = JSON.parse(postAuthHandler(request))
 
      response.send(JSON.stringify(result))
 })
