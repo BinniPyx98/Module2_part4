@@ -1,6 +1,5 @@
-const request = require('supertest')
-const app = require('../../server')
-const {response} = require("express");
+import request from 'supertest'
+import app from '../../server.js'
 
 it('gallery for uploadImage 200', async () => {
     const res = await request(app).post('/uploadImage')
