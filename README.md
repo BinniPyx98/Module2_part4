@@ -1,7 +1,7 @@
  <h1 align="center">MODULE-2-PART-2-galleryForGallery</h1>
    <h2 align="center">Александр Калиниченко</h2> 
 <hr />
-<h2> Discription</h2>
+<h2> Description</h2>
   <p style="text-indent: 25px;">Основной идеей проекта было создание сервера и клиент части для галлереи картинок.
   В ходной точкой является файл server.ts и index.html
   После запуска сервер начинает прослушивать порт 5000

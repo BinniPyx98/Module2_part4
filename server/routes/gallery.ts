@@ -1,12 +1,15 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 import {Request, Response} from "express";
-import {postImageHandler} from "../post/postImageHandler";
-import {getGalleryHandler} from "../get/get";
+import {postImageHandler} from "../src/uploadImage/postImageHandler.js";
+import {getHandler} from "../src/gallery/getGallery.js";
 
-router.post('/',(request: any, response: Response) => {
-    if (request.query.page > 3) {
-        response.send({errorMessage:"server haven't this page"})
+
+
+router.post('/',(request: Request, response: Response) => {
+
+    if (Number(request.query.page) > 3) {
+        response.status(404).send({errorMessage:"server haven't this page"})
     } else {
         let result = postImageHandler(request);
 
@@ -21,8 +24,7 @@ router.post('/',(request: any, response: Response) => {
 
 
 router.get('/', (request: Request, response: Response) => {
-    let result = getGalleryHandler(request);
-
-    response.send(result);
+   getHandler(request,response);
 })
-module.exports = router;
+
+export default router
