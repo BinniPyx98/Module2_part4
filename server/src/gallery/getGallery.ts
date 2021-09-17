@@ -1,48 +1,57 @@
-import {Request} from "express";
+import {Request, Response} from "express";
 
-import fs from 'fs'
+import {readdir} from 'fs/promises';
+import {fileURLToPath} from 'url';
+import {checkPage} from "../check/pageInQuery/page.js";
 import path from 'path'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import {dirname} from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-//////Get Handler
-type GetHandler = string | {
-    total: number,
-    page: number,
-    objects: Array<string>
+
+
+export function getHandler(request: Request, response: Response): void {
+
+
+    if (checkPage(request, response)) {
+        (async () => {
+            await createGalleryObjectAndSendResponse(response, request)
+        })()
+    }
+
+
 }
 
-export function getHandler(request: Request): GetHandler {
+
+
+
+
+
+async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
+
+    let pageNumber = Number(request.query.page)
+    let arr: Array<string> = []
 
     try {
-        console.log(request.query)
 
-        let pageNumber = Number(request.query.page)
-
-        if (request.headers.authorization === 'token') {
-            let arr: Array<string>
-            // Read img path
-            try {
-                arr = fs.readdirSync( __dirname+`/img/page${pageNumber}`)
-                    .map((elem: any) => path.join( `/img/page${pageNumber}/`, elem).toString());
-            } catch (e) {
-                console.log(e)
-            }
-
-
-            let galleryObj = {
-                total: 3,
-                page: Number(pageNumber),
-                objects: arr
-            }
-            console.log(galleryObj)
-            return JSON.stringify(galleryObj)
-        } else {
-            return "Not authorization"
+        const files = await readdir(__dirname + `/img/page${pageNumber}`);
+        for (const file of files) {
+            arr.push(path.join(`/img/page${pageNumber}/`, file).toString())
         }
+
+        let galleryObj = {
+            total: 3,
+            page: Number(pageNumber),
+            objects: arr
+        }
+
+        console.log(galleryObj)
+        response.send(JSON.stringify(galleryObj))
+
     } catch (e) {
-        return 'server havent this page'
+        console.log(e)
     }
+
 }
+
+

@@ -1,5 +1,6 @@
 import express, {NextFunction, Request, Response} from "express";
-import logger from "../logger/logger.js";
+import {checkToken} from "../src/check/token/token.js";
+import {requestLogging} from "../src/logger/requestLogging/requestLogging.js";
 const router=express.Router()
 
 
@@ -13,12 +14,11 @@ router.all('*', (request: Request, response: Response, next: NextFunction) => {
     }
 
     if (request.method == 'POST' && request.query.page || request.method == 'GET' && request.query.page) {
-        checkTokenAndOptionsRequest(request, next, response);
+        checkToken(request, next, response);
     } else {
         next();
     }
 });
-
 
 
 
@@ -32,20 +32,8 @@ function setHeaderForOptions(response:Response):Response {
     return response
 }
 
-function checkTokenAndOptionsRequest(request: Request, next: NextFunction, response: Response): void {
-    if (request.headers.authorization === 'token') {
-        next();
-    } else {
-        logger.info('Not authorization');
-        response.send('Not authorization');
-    }
-}
 
 
-function requestLogging(request: Request): void {
-    logger.info('Method-' + JSON.stringify(request.method) + ' ' +
-        'Url-' + JSON.stringify(request.url) + ' ' +
-        'Body-' + JSON.stringify(request.body) + ' ' +
-        'Headers-' + JSON.stringify(request.headers));
-}
+
+
 export default router

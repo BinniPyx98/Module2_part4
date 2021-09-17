@@ -1,42 +1,22 @@
-//////Authorization
-type AuthResult = string | { token: string } //string if error
-import logger from '../../logger/logger.js';
+import {checkAuthData} from "../check/authData/authData.js";
+import {Request, Response} from "express";
 
-interface UserAuthDBData {
-    [email: string]: string;
-}
-let userAuthDBData: UserAuthDBData = {
-    "asergeev@flo.team": 'jgF5tn4F',
-    'vkotikov@flo.team': 'po3FGas8',
-    'tpupkin@flo.team': 'tpupkin@flo.team'
+interface AuthResult {
+    error: boolean;
+    token?: string;
+    errorMessage?: string;
 }
 
+export function authorization(request: Request, response: Response) {
 
-export function checkUserAuthorizationData(authData: any): AuthResult {
-    let userDataFromQuery = authData
-    let userPasswordFromQuery = userDataFromQuery.password
-    let userEmailFromQuery = userDataFromQuery.email
+    let authData = request.body
+    let authResult = checkAuthData(authData)
+    console.log(authResult.data)
 
-    let emailDbStatus = checkEmailInDB(userEmailFromQuery)
-    let passwordDbStatus = checkPasswordInDB(userPasswordFromQuery, userEmailFromQuery)
-
-    let authorizationData = passwordDbStatus && emailDbStatus
-    if (authorizationData == true) {
-        logger.info('successful authorization')
-        return {token: "token"}
-
-    } else {
-        logger.info('authorization error')
-        return "authorization error"
+    if(authResult.error===false) {
+        response.status(200).send(JSON.stringify(authResult.data))
     }
-}
-
-function checkEmailInDB(userEmailFromQuery: string): boolean {
-    return userAuthDBData.hasOwnProperty(userEmailFromQuery)
-}
-
-function checkPasswordInDB(userPasswordFromQuery: string, UserEmailFromQuery: string): boolean {
-    let passwordInDB = userAuthDBData[UserEmailFromQuery]
-
-    return passwordInDB === userPasswordFromQuery ? true : false
+    else{
+        response.status(401).send(JSON.stringify(authResult.data))
+    }
 }

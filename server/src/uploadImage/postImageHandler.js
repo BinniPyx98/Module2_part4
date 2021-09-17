@@ -1,4 +1,4 @@
-import logger from '../../logger/logger.js';
+import logger from '../logger/logger.js';
 import fs from 'fs';
 let galleryPageNumber = 1;
 let imageName = '';

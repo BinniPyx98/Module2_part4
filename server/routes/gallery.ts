@@ -9,7 +9,7 @@ import {getHandler} from "../src/gallery/getGallery.js";
 router.post('/',(request: Request, response: Response) => {
 
     if (Number(request.query.page) > 3) {
-        response.send("server haven't this page")
+        response.status(404).send({errorMessage:"server haven't this page"})
     } else {
         let result = postImageHandler(request);
 
@@ -24,8 +24,7 @@ router.post('/',(request: Request, response: Response) => {
 
 
 router.get('/', (request: Request, response: Response) => {
-    let result = getHandler(request);
-    console.log(result)
-    response.send(result);
+   getHandler(request,response);
 })
+
 export default router

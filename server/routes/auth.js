@@ -1,9 +1,8 @@
-import { postHandler } from "../src/auth/postAuthHandler.js";
+import { authorization } from "../src/auth/authorization.js";
 import express from 'express';
 const router = express.Router();
 router.post('/', (request, response) => {
-    let result = JSON.parse(postHandler(request));
-    response.send(result);
+    authorization(request, response);
 });
 export default router;
 //# sourceMappingURL=auth.js.map

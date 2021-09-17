@@ -1,4 +1,4 @@
-import {postHandler} from "../src/auth/postAuthHandler.js";
+import {authorization} from "../src/auth/authorization.js";
 import {Response, Request} from "express";
 import express from 'express'
 const router=express.Router()
@@ -6,9 +6,8 @@ const router=express.Router()
 
 
 router.post('/', (request: Request, response: Response) => {
-    let result = JSON.parse(postHandler(request))
+    authorization(request,response)
 
-     response.send(result)
 })
 
 export default router
