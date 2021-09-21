@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+   // "outDir": "server/build",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ESNext",

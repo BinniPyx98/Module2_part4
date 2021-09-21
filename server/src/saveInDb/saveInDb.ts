@@ -12,7 +12,7 @@ export function saveImgInDb(req: Request, res: Response) {
         //  metadata: getMeta(req.files.img.name,req.query.page)
     };
 
-    let result = searchImgInDb(image)
+    let result = searchImgInDb(image,req.query.page)
 
     if (result) {
         res.status(200).send({message: "img was add"})
@@ -22,16 +22,16 @@ export function saveImgInDb(req: Request, res: Response) {
 }
 
 
-function searchImgInDb(image) {
+function searchImgInDb(image,pageNumber) {
     let dbConnection = getDb()
     let result: boolean
 
-    dbConnection.collection('users').findOne({path: image.path}, (err, doc) => {
+    dbConnection.collection(`page${pageNumber}`).findOne({path: image.path}, (err, doc) => {
         if (err) {
             console.log(err)
         } else {
             if (!doc) {
-                result = insertImg(dbConnection, image)
+                result = insertImg(dbConnection, image,pageNumber)
             } else {
                 console.log({errorMessage: 'img exist'})
                 result = false
@@ -41,9 +41,9 @@ function searchImgInDb(image) {
     return result
 }
 
-function insertImg(dbConnection, image) {
+function insertImg(dbConnection, image,pageNumber) {
     let status
-    dbConnection.collection('users').insertOne(image, function (err, DbResult) {
+    dbConnection.collection(`page${pageNumber}`).insertOne(image, function (err, DbResult) {
         if (err) {
             console.log(err);
             logger.info(err)
@@ -71,7 +71,7 @@ export async function saveAllImage() {
                 path: `/img/page${i}/` + file,
                 //  metadata: getMeta(req.files.img.name,req.query.page)
             };
-            searchImgInDb(image)
+            searchImgInDb(image,i)
         }
 
 

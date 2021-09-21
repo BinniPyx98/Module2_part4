@@ -7,6 +7,9 @@ import path from 'path'
 
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
+import app from "../../server";
+import {getDb} from "../../index.js";
+
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
@@ -24,30 +27,47 @@ export function getHandler(request: Request, response: Response): void {
 }
 
 
-
-
-
-
 async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
-
+    let dbConnection = getDb()
     let pageNumber = Number(request.query.page)
     let arr: Array<string> = []
 
     try {
 
-        const files = await readdir(__dirname + `/img/page${pageNumber}`);
-        for (const file of files) {
-            arr.push(path.join(`/img/page${pageNumber}/`, file).toString())
-        }
 
-        let galleryObj = {
-            total: 3,
-            page: Number(pageNumber),
-            objects: arr
-        }
+        dbConnection.collection(`page${pageNumber}`).find().toArray((err, docs) => {
 
-        console.log(galleryObj)
-        response.send(JSON.stringify(galleryObj))
+            if (err) {
+                console.log(err)
+                response.sendStatus(500)
+            } else {
+                for (const file of docs) {
+                    arr.push(String(file.path))
+                    console.log(file.path)
+                }
+
+
+                let galleryObj = {
+                    total: 3,
+                    page: Number(pageNumber),
+                    objects: arr
+                }
+
+                console.log(galleryObj)
+                response.send(JSON.stringify(galleryObj))
+
+
+
+            }
+        })
+
+        //
+        // const files = await readdir(__dirname + `/img/page${pageNumber}`);
+        // for (const file of files) {
+        //     arr.push(path.join(`/img/page${pageNumber}/`, file).toString())
+        // }
+
+
 
     } catch (e) {
         console.log(e)
