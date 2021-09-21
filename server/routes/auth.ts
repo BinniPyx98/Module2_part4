@@ -6,7 +6,7 @@ const router=express.Router()
 
 
 router.post('/', (request: Request, response: Response) => {
-    authorization(request,response)
+    (async ()=>{await authorization(request,response)})()
 
 })
 

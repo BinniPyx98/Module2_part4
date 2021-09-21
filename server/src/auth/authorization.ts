@@ -7,10 +7,11 @@ interface AuthResult {
     errorMessage?: string;
 }
 
-export function authorization(request: Request, response: Response) {
+export async function authorization(request: Request, response: Response) {
 
     let authData = request.body
-    let authResult = checkAuthData(authData)
+    let authResult = await checkAuthData(authData)
+
     console.log(authResult.data)
 
     if(authResult.error===false) {

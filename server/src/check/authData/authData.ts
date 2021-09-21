@@ -1,6 +1,7 @@
 //////Authorization
 
 import logger from '../../logger/logger.js';
+import {getDb} from "../../../index.js";
 
 interface AuthResult {
     error: boolean;
@@ -10,6 +11,9 @@ interface AuthResult {
     }
 }
 
+
+let emailDbStatus
+let passwordDbStatus
 
 interface UserAuthDBData {
     [email: string]: string;
@@ -22,33 +26,33 @@ let userAuthDBData: UserAuthDBData = {
 }
 
 
-export function checkAuthData(authData): AuthResult {
+export async function checkAuthData(authData) {
 
 
     let userDataFromQuery = authData
     let userPasswordFromQuery = userDataFromQuery.password
     let userEmailFromQuery = userDataFromQuery.email
 
-    let emailDbStatus = checkEmailInDB(userEmailFromQuery)
-    let passwordDbStatus = checkPasswordInDB(userPasswordFromQuery, userEmailFromQuery)
+    let dbConnection= getDb()
+    let result
 
-    let authorizationData = passwordDbStatus && emailDbStatus
-    if (authorizationData == true) {
-        logger.info('successful authorization')
-        return {error: false, data:{token: "token"}}
+    result=await dbConnection.collection(`users`).findOne({email: userEmailFromQuery})
 
-    } else {
-        logger.info('authorization error')
-        return {error: true, data:{errorMessage: 'authorization error'}}
-    }
+
+    if (result) {
+                    if (result.password === userPasswordFromQuery) {
+                        logger.info('successful authorization')
+                        result= {error: false, data: {token: "token"}}
+
+                    }
+
+                } else {
+                    logger.info('authorization error')
+                    result= {error: true, data: {errorMessage: 'authorization error'}}
+
+                }
+
+return result
 }
 
-function checkEmailInDB(userEmailFromQuery: string): boolean {
-    return userAuthDBData.hasOwnProperty(userEmailFromQuery)
-}
 
-function checkPasswordInDB(userPasswordFromQuery: string, UserEmailFromQuery: string): boolean {
-    let passwordInDB = userAuthDBData[UserEmailFromQuery]
-
-    return passwordInDB === userPasswordFromQuery ? true : false
-}
