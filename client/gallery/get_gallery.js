@@ -68,7 +68,7 @@ function Upload(file) {
                     if (!!file) return [3 /*break*/, 1];
                     console.log('not file');
                     return [3 /*break*/, 3];
-                case 1: return [4 /*yield*/, fetch("http://localhost:5400/gallery?page=" + getPage(), {
+                case 1: return [4 /*yield*/, fetch("http://localhost:5400/users", {
                         method: 'POST',
                         headers: {
                             'Access-Control-Allow-Methods': 'POST'

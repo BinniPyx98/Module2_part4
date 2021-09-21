@@ -29,7 +29,6 @@ app.use("/auth", auth);
 app.use("/", home);
 app.use("/gallery", gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-
 app.use(express.static(config.get('ClientPath')));
 app.use('/img', express.static( 'src/gallery/img'));
 

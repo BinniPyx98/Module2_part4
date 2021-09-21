@@ -11,13 +11,8 @@ router.post('/',(request: Request, response: Response) => {
     if (Number(request.query.page) > 3) {
         response.status(404).send({errorMessage:"server haven't this page"})
     } else {
-        let result = postImageHandler(request);
+       postImageHandler(request,response);
 
-        if (result) {
-            response.sendStatus(200);
-        } else {
-            response.sendStatus(500);
-        }
     }
 
 })

@@ -1,13 +1,14 @@
 import {Request, Response} from "express";
 
 import {readdir} from 'fs/promises';
-import {fileURLToPath} from 'url';
 import {checkPage} from "../check/pageInQuery/page.js";
 import path from 'path'
-import {dirname} from 'path';
 
+
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export const __dirname = dirname(__filename);
 
 
 export function getHandler(request: Request, response: Response): void {

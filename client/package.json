@@ -1,7 +1,7 @@
 {
   "name": "module1_part3_gallery",
   "version": "1.0.0",
-  "type": "commonjs",
+
   "dependencies": {
     "requirejs": "^2.3.6",
     "tslint-language-service": "^0.9.9",
