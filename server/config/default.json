@@ -1,4 +1,4 @@
 {
   "ClientPath": "/Users/pm/Desktop/test/FullProject/client",
-  "MongoUrl": "mongodb+srv://XiLLeR:Kalina270698@cluster0.qckeb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "MongoUrl": "mongodb+srv://.net/myFirstDatabase?retryWrites=true&w=majority"
 }
