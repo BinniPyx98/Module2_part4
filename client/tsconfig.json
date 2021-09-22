@@ -3,6 +3,7 @@
     "module": "ES6",
     "target": "es6",
     "sourceMap": true,
+    "moduleResolution": "node",
     "noImplicitAny": true
   },
   "exclude": [
