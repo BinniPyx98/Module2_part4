@@ -2,16 +2,13 @@ import logger from '../logger/logger.js';
 import fs from 'fs'
 import {Request, Response} from "express";
 import {saveImgInDb} from "../saveInDb/saveInDb.js";
+
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
 
-// declare module 'express' {
-//     interface Request {
-//         body: any // Actually should be something like `multer.Body`
-//         files: any // Actually should be something like `multer.Files`
-//     }
-// }
-
+/*
+ * upload image in dir and db
+ */
 export function postImageHandler(request: Request, response: Response): void {
 
     let fileData = request.files.img;
@@ -34,8 +31,6 @@ export function postImageHandler(request: Request, response: Response): void {
  function trySaveToDir(galleryPageNumber: Number, imageName: String, Image: any, response) {
     try {
 
-
-
         fs.writeFile(`./img/page${galleryPageNumber}/${imageName}`, Image, () => {
             logger.info({message: 'Image success saved in dir'})
         })
@@ -50,7 +45,7 @@ export function postImageHandler(request: Request, response: Response): void {
 
 function trySaveToMongoDb(request, response) {
     try {
-        saveImgInDb(request, response)
+        (async ()=>{await saveImgInDb(request, response)})()
 
     } catch (err) {
         console.log(err)

@@ -5,7 +5,9 @@ import {postImageHandler} from "../src/uploadImage/postImageHandler.js";
 import {getHandler} from "../src/gallery/getGallery.js";
 
 
-
+/*
+ * Upload image to the server
+ */
 router.post('/',(request: Request, response: Response) => {
 
     if (Number(request.query.page) > 3) {
@@ -17,7 +19,9 @@ router.post('/',(request: Request, response: Response) => {
 
 })
 
-
+/*
+ * Sending gallery to client
+ */
 router.get('/', (request: Request, response: Response) => {
    getHandler(request,response);
 })

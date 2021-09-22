@@ -4,7 +4,9 @@ import logger from '../src/logger/logger.js';
 import  express from'express'
 const router=express.Router()
 
-
+/*
+ * Send index.html to user
+ */
 
 router.get('/', (request: Request, response: Response) => {
     logger.info(JSON.stringify(request.headers));

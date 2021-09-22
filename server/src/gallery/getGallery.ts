@@ -1,19 +1,11 @@
 import {Request, Response} from "express";
-
-import {readdir} from 'fs/promises';
 import {checkPage} from "../check/pageInQuery/page.js";
-import path from 'path'
+import {getDbConnection} from "../../index.js";
 
 
-import {dirname} from 'path';
-import {fileURLToPath} from 'url';
-import app from "../../server";
-import {getDb} from "../../index.js";
-
-const __filename = fileURLToPath(import.meta.url);
-export const __dirname = dirname(__filename);
-
-
+/*
+ * work aster user do get request on http://localhost:5400/gallery?page=<pageNumber>
+ */
 export function getHandler(request: Request, response: Response): void {
 
 
@@ -26,51 +18,29 @@ export function getHandler(request: Request, response: Response): void {
 
 }
 
-
 async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
-    let dbConnection = getDb()
+    let dbConnection = getDbConnection()
     let pageNumber = Number(request.query.page)
-    let arr: Array<string> = []
+    let imagePathArray: Array<string> = []  //img path array
+
 
     try {
+        let result = await dbConnection.collection(`page${pageNumber}`).find().toArray()
 
+        for (const file of result) {
+            imagePathArray.push(String(file.path))
+        }
 
-        dbConnection.collection(`page${pageNumber}`).find().toArray((err, docs) => {
+        let galleryObj = {
+            total: 3,
+            page: Number(pageNumber),
+            objects: imagePathArray
+        }
 
-            if (err) {
-                console.log(err)
-                response.sendStatus(500)
-            } else {
-                for (const file of docs) {
-                    arr.push(String(file.path))
-                    console.log(file.path)
-                }
+        response.send(JSON.stringify(galleryObj))
 
-
-                let galleryObj = {
-                    total: 3,
-                    page: Number(pageNumber),
-                    objects: arr
-                }
-
-                console.log(galleryObj)
-                response.send(JSON.stringify(galleryObj))
-
-
-
-            }
-        })
-
-        //
-        // const files = await readdir(__dirname + `/img/page${pageNumber}`);
-        // for (const file of files) {
-        //     arr.push(path.join(`/img/page${pageNumber}/`, file).toString())
-        // }
-
-
-
-    } catch (e) {
-        console.log(e)
+    } catch (err) {
+        console.log(err)
     }
 
 }

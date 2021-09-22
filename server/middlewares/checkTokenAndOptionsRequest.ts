@@ -3,7 +3,9 @@ import {checkToken} from "../src/check/token/token.js";
 import {requestLogging} from "../src/logger/requestLogging/requestLogging.js";
 const router=express.Router()
 
-
+/*
+ *Перехватывает все реквесты и проверяет наличие токена и options для cors
+ */
 router.all('*', (request: Request, response: Response, next: NextFunction) => {
     requestLogging(request);
 
