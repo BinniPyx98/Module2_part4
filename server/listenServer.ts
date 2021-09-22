@@ -5,7 +5,7 @@ import {saveAllImage} from "./src/saveInDb/saveInDb.js";
 function start() {
     app.listen(5400, () => {
         logger.info('Server running');
-        (async ()=>{await saveAllImage()})()
+        (async ()=>{await saveAllImage()})() //get img from static and save in db
     })
 }
 export default start

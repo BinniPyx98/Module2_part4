@@ -4,14 +4,17 @@ import logger from "../logger/logger.js";
 import im from 'imagemagick'
 import {readdir} from "fs/promises";
 import {__dirname} from "../gallery/getGallery.js";
+import {fileMetadataAsync} from 'file-metadata';
 
-export function saveImgInDb(req: Request, res: Response) {
+
+
+export async function saveImgInDb(req: Request, res: Response) {
 
     let image = {
         path: `/img/page${req.query.page}/` + req.files.img.name,
-        //  metadata: getMeta(req.files.img.name,req.query.page)
+        metadata: await fileMetadataAsync(__dirname +`/img/page${req.query.page}/` + req.files.img.name)
     };
-
+   // console.log(fileMetadataSync(req.files.img))
     let result = searchImgInDb(image,req.query.page)
 
     if (result) {
@@ -62,6 +65,7 @@ async function getMeta(imageName, pageNumber) {
     })
 }
 
+
 export async function saveAllImage() {
 
     for (let i = 1; i <= 3; i++) {
@@ -69,7 +73,7 @@ export async function saveAllImage() {
         for (const file of files) {
             let image = {
                 path: `/img/page${i}/` + file,
-                //  metadata: getMeta(req.files.img.name,req.query.page)
+                metadata: await fileMetadataAsync(__dirname +`/img/page${i}/` + file)
             };
             searchImgInDb(image,i)
         }

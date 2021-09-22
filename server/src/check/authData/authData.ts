@@ -38,7 +38,6 @@ export async function checkAuthData(authData) {
 
     result=await dbConnection.collection(`users`).findOne({email: userEmailFromQuery})
 
-
     if (result) {
                     if (result.password === userPasswordFromQuery) {
                         logger.info('successful authorization')

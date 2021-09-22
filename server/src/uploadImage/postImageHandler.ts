@@ -2,14 +2,6 @@ import logger from '../logger/logger.js';
 import fs from 'fs'
 import {Request, Response} from "express";
 import {saveImgInDb} from "../saveInDb/saveInDb.js";
-import fsm from 'fs-meta'
-import path from 'path'
-import {dirname} from 'path';
-
-import {fileURLToPath} from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
 

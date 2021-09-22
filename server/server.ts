@@ -1,4 +1,3 @@
-import {Response, Request, NextFunction} from "express";
 
 import * as swaggerUI from "swagger-ui-express";
 import * as path from 'path';
@@ -33,10 +32,5 @@ app.use(express.static(config.get('ClientPath')));
 app.use('/img', express.static( 'src/gallery/img'));
 
 
-
-
-/*
-********************** Start server ***********************
- */
 
 export default app
