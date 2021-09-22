@@ -7,7 +7,8 @@
 
 
 <h3>Запуск проекта</h3>
-   <p style="text-indent: 25px;"> В корне проекта(dir name FullProject) в терминале написать команду yarn или npm install</p>
+   <p style="text-indent: 25px;"> Выполнить команду npm install в папках FullProject, server, client</p>
+   <p style="text-indent: 25px;"> В файле server/config/default.json  найти свойство ClientPath и изменить абсолютный путь на свой  к папке клиент</p>
    <p style="text-indent: 25px;"> В корне проекта(dir name FullProject) в терминале написать команду tsc </p>
    <p style="text-indent: 25px;">Запустить файл index.js в папке server. nodemon index.js</p>
 <p> Если обратиться к адресу http://localhost:5400/ будет получен index.html</p>
