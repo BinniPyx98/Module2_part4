@@ -16,7 +16,7 @@ export async function saveImgInDb(req: Request, res: Response) {
         metadata: await fileMetadataAsync(__pathToGallery +`/img/page${req.query.page}/` + req.files.img.name)
     };
 
-    let result = searchImgInDb(image,req.query.page)
+    let result = customInsertOne(image,req.query.page)
 
     if (result) {
         res.status(200).send({message: "img was add"})
@@ -26,7 +26,7 @@ export async function saveImgInDb(req: Request, res: Response) {
 }
 
 
-function searchImgInDb(image,pageNumber) {
+function customInsertOne(image,pageNumber) {
     let dbConnection = getDbConnection()
     let result: boolean
 
@@ -73,7 +73,7 @@ export async function saveAllImage() {
                 path: `/img/page${i}/` + file,
                 metadata: await fileMetadataAsync(__pathToGallery +`/img/page${i}/` + file)
             };
-            searchImgInDb(image,i)
+            customInsertOne(image,i)
         }
 
 
