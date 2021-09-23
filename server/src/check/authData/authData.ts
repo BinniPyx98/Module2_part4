@@ -4,11 +4,7 @@ import {getDbConnection} from "../../../index.js";
 
 export async function checkAuthData(authData) {
 
-
-    const userDataFromQuery = authData;
-    const userPasswordFromQuery = userDataFromQuery.password;
-    const userEmailFromQuery = userDataFromQuery.email;
-
+    const [userPasswordFromQuery,userEmailFromQuery]=[authData.password,authData.email]
     let dbConnection = getDbConnection();
     let userPresenceInDb;
 

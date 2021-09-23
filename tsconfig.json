@@ -2,7 +2,7 @@
   "compilerOptions": {
    // "outDir": "server/build",
     "esModuleInterop": true,
-    "moduleResolution": "node",
+   "moduleResolution": "node",
     "target": "ESNext",
     "module": "es2020",
     "sourceMap": true

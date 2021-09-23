@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {getDbConnection} from "../../index.js";
 import logger from "../logger/logger.js";
-import im from 'imagemagick'
 import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
@@ -17,7 +16,7 @@ export async function saveImgInDb(req: Request, res: Response) {
         metadata: await fileMetadataAsync(__pathToGallery +`/img/page${req.query.page}/` + req.files.img.name)
     };
 
-    let result = searchImgInDb(image,req.query.page)
+    let result = customInsertOne(image,req.query.page)
 
     if (result) {
         res.status(200).send({message: "img was add"})
@@ -27,11 +26,11 @@ export async function saveImgInDb(req: Request, res: Response) {
 }
 
 
-function searchImgInDb(image,pageNumber) {
+function customInsertOne(image,pageNumber) {
     let dbConnection = getDbConnection()
     let result: boolean
 
-    dbConnection.collection(`page${pageNumber}`).findOne({path: image.path}, (err, doc) => {
+    dbConnection.collection(`image`).findOne({path: image.path}, (err, doc) => {
         if (err) {
             console.log(err)
         } else {
@@ -49,7 +48,7 @@ function searchImgInDb(image,pageNumber) {
 function insertImg(dbConnection, image,pageNumber) {
     let status
 
-    dbConnection.collection(`page${pageNumber}`).insertOne(image, function (err, DbResult) {
+    dbConnection.collection(`image`).insertOne(image, function (err, DbResult) {
 
         if (err) {
             console.log(err);
@@ -74,7 +73,7 @@ export async function saveAllImage() {
                 path: `/img/page${i}/` + file,
                 metadata: await fileMetadataAsync(__pathToGallery +`/img/page${i}/` + file)
             };
-            searchImgInDb(image,i)
+            customInsertOne(image,i)
         }
 
 
