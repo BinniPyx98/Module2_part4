@@ -1,14 +1,15 @@
-import logger from '../../logger/logger.js';
-import {getDbConnection} from "../../../index.js";
+import {logger} from '../../logger/logger.js';
+import {userModel} from "../../../index.js";
+//import {getDbConnection} from "../../../index.js";
 
 
 export async function checkAuthData(authData) {
 
     const [userPasswordFromQuery,userEmailFromQuery]=[authData.password,authData.email]
-    let dbConnection = getDbConnection();
+    //let dbConnection = getDbConnection();
     let userPresenceInDb;
 
-    userPresenceInDb = await dbConnection.collection(`users`).findOne({email: userEmailFromQuery});
+    userPresenceInDb = await userModel.findOne({email: userEmailFromQuery});
 
 
     /*

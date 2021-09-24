@@ -1,5 +1,5 @@
 import {Request} from "express";
-import logger from "../logger.js";
+import {logger} from "../logger.js";
 
 
 export function requestLogging(request: Request): void {

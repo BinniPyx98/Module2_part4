@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getDbConnection} from "../../index.js";
+import {imageModel} from "../../index.js";
 
 
 /*
@@ -7,31 +7,21 @@ import {getDbConnection} from "../../index.js";
  */
 export function getHandler(request: Request, response: Response): void {
 
-
-
-        (async () => {
-            await createGalleryObjectAndSendResponse(response, request)
-        })()
-
-
+    createGalleryObjectAndSendResponse(response, request)
 
 }
 
- async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
-    let dbConnection = getDbConnection()
+async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
     let pageNumber = Number(request.query.page)
-     let limit=Number(request.query.limit)
-     console.log("page: "+pageNumber)
+    let limit = Number(request.query.limit)
     let imagePathArray: Array<string> = []  //img path array
 
-
     try {
-        let total=Math.ceil(await dbConnection.collection('image').count()/limit);
+        let total = Math.ceil(Number(Number(await imageModel.count()) / limit))
+        let result = await imageModel.find().lean().skip(Number((pageNumber - 1) * limit)).limit(limit)
 
-        let result =  await dbConnection.collection(`image`).find().skip((pageNumber-1)*limit).limit(limit).toArray();
-
-        for (const file of result) {
-            console.log(String(file.path))
+        for (let file of result) {
+            // @ts-ignore
             imagePathArray.push(String(file.path))
         }
 

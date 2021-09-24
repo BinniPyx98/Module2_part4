@@ -1,4 +1,4 @@
-import logger from '../logger/logger.js';
+import {logger} from '../logger/logger.js';
 import fs from 'fs'
 import {Request, Response} from "express";
 import {saveImgInDb} from "../saveInDb/saveInDb.js";
@@ -16,10 +16,11 @@ export function postImageHandler(request: Request, response: Response): void {
     galleryPageNumber = Number(request.query.page)
     imageName = fileData.name
 
+
     if (fileData) {
         logger.info({message: 'postImageHandler: try upload img'})
 
-        trySaveToDir(galleryPageNumber, imageName, fileData.data, response)
+        trySaveToDir( imageName, fileData.data, response)
 
         trySaveToMongoDb(request, response)
 
@@ -28,24 +29,24 @@ export function postImageHandler(request: Request, response: Response): void {
     }
 }
 
- function trySaveToDir(galleryPageNumber: Number, imageName: String, Image: any, response) {
+ function trySaveToDir( imageName: String, Image: Buffer, response) {
     try {
 
-        fs.writeFile(`./img/page${galleryPageNumber}/${imageName}`, Image, () => {
+        fs.writeFile(`./img/${imageName}`, Image, {flag:'wx'},() => {
             logger.info({message: 'Image success saved in dir'})
         })
 
     } catch (err) {
         console.log(err)
-        logger.info({errorMessage: 'postImageHandler: error save to dir'})
-        response.status(500).send({errorMessage: 'postImageHandler: error save to dir'})
+        logger.info({errorMessage: 'file exist'})
+        response.status(500).send({errorMessage: 'file exist'})
     }
 
 }
 
 function trySaveToMongoDb(request, response) {
     try {
-        (async ()=>{await saveImgInDb(request, response)})()
+      saveImgInDb(request, response)
 
     } catch (err) {
         console.log(err)

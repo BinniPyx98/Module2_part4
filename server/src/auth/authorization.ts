@@ -17,4 +17,5 @@ export async function authorization(request: Request, response: Response) {
     else{
         response.status(401).send(JSON.stringify(authResult.data));
     }
+
 }
