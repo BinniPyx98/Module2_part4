@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {imageModel} from "../../index.js";
+import {imageModel} from "../DbModels/Models.js";
 
 
 /*

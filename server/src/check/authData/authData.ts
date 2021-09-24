@@ -1,5 +1,5 @@
 import {logger} from '../../logger/logger.js';
-import {userModel} from "../../../index.js";
+import {userModel} from "../../DbModels/Models.js";
 //import {getDbConnection} from "../../../index.js";
 
 

@@ -3,7 +3,7 @@ import {logger} from "../logger/logger.js";
 import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
-import {imageModel} from "../../index.js";
+import {imageModel} from "../DbModels/Models.js";
 
 
 /*
