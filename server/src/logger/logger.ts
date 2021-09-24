@@ -1,7 +1,7 @@
 
 import SimpleNodeLogger from 'simple-node-logger'
 
-let logger = SimpleNodeLogger.createRollingFileLogger({
+ export let logger = SimpleNodeLogger.createRollingFileLogger({
     logDirectory: './src/logger',
     dateFormat: 'DD.MM.YYYY',
     fileNamePattern: 'info_<DATE>.log',
@@ -10,4 +10,4 @@ let logger = SimpleNodeLogger.createRollingFileLogger({
 
 
 
-export default logger
+//export default logger

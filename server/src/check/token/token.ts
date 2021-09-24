@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import logger from "../../logger/logger.js";
+import {logger} from "../../logger/logger.js";
 
 /*
  * Check token in request headers

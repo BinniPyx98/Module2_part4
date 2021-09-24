@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
-import {getDbConnection} from "../../index.js";
-import logger from "../logger/logger.js";
+import {logger} from "../logger/logger.js";
 import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
+import {imageModel} from "../DbModels/Models.js";
 
 
 /*
@@ -11,31 +11,30 @@ import {fileMetadataAsync} from 'file-metadata';
  */
 export async function saveImgInDb(req: Request, res: Response) {
 
-    let image = {
+    let image = new imageModel({
         path: `/img/page${req.query.page}/` + req.files.img.name,
-        metadata: await fileMetadataAsync(__pathToGallery +`/img/page${req.query.page}/` + req.files.img.name)
-    };
+        metadata: await fileMetadataAsync(__pathToGallery +`/img/` + req.files.img.name)
+    });
 
-    let result = customInsertOne(image,req.query.page)
+    let result = customInsertOne(image)
 
     if (result) {
         res.status(200).send({message: "img was add"})
     } else {
-        res.sendStatus(500)
+        res.status(500).send({errorMessage:"img exist"})
     }
 }
 
 
-function customInsertOne(image,pageNumber) {
-    let dbConnection = getDbConnection()
+function customInsertOne(image) {
     let result: boolean
 
-    dbConnection.collection(`image`).findOne({path: image.path}, (err, doc) => {
+    imageModel.findOne({path: image.path}, (err, doc) => {
         if (err) {
             console.log(err)
         } else {
             if (!doc) {
-                result = insertImg(dbConnection, image,pageNumber)
+                result = insertImg(image)
             } else {
                 console.log({errorMessage: 'img exist in db'})
                 result = false
@@ -45,17 +44,17 @@ function customInsertOne(image,pageNumber) {
     return result
 }
 
-function insertImg(dbConnection, image,pageNumber) {
+function insertImg(image) {
     let status
 
-    dbConnection.collection(`image`).insertOne(image, function (err, DbResult) {
+    image.save(function (err, DbResult) {
 
         if (err) {
             console.log(err);
             logger.info(err)
             status = false
         }
-        console.log(DbResult)
+        logger.info(DbResult)
         status = true
     });
     return status
@@ -66,16 +65,15 @@ function insertImg(dbConnection, image,pageNumber) {
  */
 export async function saveAllImage() {
 
-    for (let i = 1; i <= 3; i++) {
-        const files = await readdir(__pathToGallery + `/img/page${i}`);
+        const files = await readdir(__pathToGallery + `/img`);
         for (const file of files) {
-            let image = {
-                path: `/img/page${i}/` + file,
-                metadata: await fileMetadataAsync(__pathToGallery +`/img/page${i}/` + file)
-            };
-            customInsertOne(image,i)
+            let image = new imageModel({
+                path: `/img/` + file,
+                metadata: await fileMetadataAsync(__pathToGallery +`/img/` + file)
+            });
+            customInsertOne(image)
         }
 
 
-    }
+
 }
