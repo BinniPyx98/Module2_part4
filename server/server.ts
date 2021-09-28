@@ -16,21 +16,22 @@ const __dirname = dirname(__filename);
 import auth from './routes/auth.js' ;
 import  gallery from './routes/gallery.js';
 import home from './routes/home.js';
-import router from './middlewares/checkTokenAndOptionsRequest.js'
+import checkTokenAndOptionsRequest from './middlewares/checkTokenAndOptionsRequest.js'
+import {router} from './routes/registration.js'
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, './docs/openapi/api.yml'));
 
 app.use(express.json())
 app.use(fileUpload({}));
 
-app.use('*',router)
+app.use('*',checkTokenAndOptionsRequest)
 app.use("/auth", auth);
 app.use("/", home);
+app.use("/",router)
 app.use("/gallery", gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(express.static(config.get('ClientPath')));
 app.use('/img', express.static( 'src/gallery/img'));
-
 
 
 export default app
