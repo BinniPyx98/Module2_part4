@@ -1,16 +1,16 @@
 import {logger} from '../../logger/logger.js';
 import {userModel} from "../../DbModels/Models.js";
-//import {getDbConnection} from "../../../index.js";
-
+import jwt from 'jsonwebtoken'
 
 export async function checkAuthData(authData) {
 
-    const [userPasswordFromQuery,userEmailFromQuery]=[authData.password,authData.email]
-    //let dbConnection = getDbConnection();
+    const tokenKey = '1a2b-3c4d-5e6f-7g8h'
+
+    const [userPasswordFromQuery, userEmailFromQuery] = [authData.password, authData.email]
     let userPresenceInDb;
 
     userPresenceInDb = await userModel.findOne({email: userEmailFromQuery});
-
+    const userId=userPresenceInDb.__id
 
     /*
      * If user presence in db check password
@@ -19,7 +19,12 @@ export async function checkAuthData(authData) {
 
         if (userPresenceInDb.password === userPasswordFromQuery) {
             logger.info('successful authorization');
-            userPresenceInDb = {error: false, data: {token: "token"}};
+            userPresenceInDb = {
+                error: false,
+                data: {
+                    token: jwt.sign({id: userId}, tokenKey),
+                }
+            };
         }
 
     } else {
