@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 let UsersSchema = new mongoose.Schema({
     email: String,

@@ -20,7 +20,7 @@ async function Upload(file: any) {
     if (!file) {
         console.log('not file');
     } else {
-        let resolve = await fetch(`http://localhost:5400/users`, {
+        let resolve = await fetch(`http://localhost:5400/gallery`, {
             method: 'POST',
             headers: {
                 'Access-Control-Allow-Methods': 'POST',
@@ -39,9 +39,7 @@ async function Upload(file: any) {
  Create Gallery
  */
 export async function getGallery(): Promise<void> {
-    console.log("gal")
     let token = (localStorage.getItem('tokenData'));
-    console.log('token')
     let resolve = await fetch(getUrl(), {
         method: "GET",
         headers: {

@@ -1,31 +1,24 @@
 import {NextFunction, Request, Response} from "express";
 import {logger} from "../../logger/logger.js";
 import {imageModel, userModel} from "../../DbModels/Models.js";
+import jwt from 'jsonwebtoken'
 
 /*
  * Check token in request headers
  */
 
-export function checkToken(request: Request, next: NextFunction, response: Response): void {
-    const userToken=request.headers.authorization
+export function checkToken(request: Request, response: Response): boolean {
 
-    userModel.findOne({token: userToken}, (err, doc) => {
-        if (err) {
-            console.log(err)
-        } else {
-            if (doc) {
-               next()
-            } else {
-                logger.info('Not authorization');
-                response.send({errorMessage:'Not authorization'});
-            }
-        }
-    })
 
-    // if (request.headers.authorization === 'token') {
-    //     next();
-    // } else {
-    //     logger.info('Not authorization');
-    //     response.send({errorMessage:'Not authorization'});
-    // }
+    const tokenKey = '1a2b-3c4d-5e6f-7g8h'
+    let tokenPresent
+    if (request.headers.authorization) {
+        jwt.verify(request.headers.authorization, tokenKey, function(err, decoded) {
+          tokenPresent=decoded.id // bar
+        });
+
+    }
+
+    return tokenPresent
+
 }

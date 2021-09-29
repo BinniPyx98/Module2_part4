@@ -3,17 +3,21 @@ import {logger} from "../logger/logger.js";
 import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
-import {imageModel} from "../DbModels/Models.js";
-
+import {imageModel, userModel} from "../DbModels/Models.js";
+import jwt from 'jsonwebtoken'
 
 /*
  * work after user request on upload file to the server
  */
 export async function saveImgInDb(req: Request, res: Response) {
 
+    const userId=await getUserIdFromToken(req)
+
+    console.log("userId "+userId)
     let image = new imageModel({
         path: `/img/page${req.query.page}/` + req.files.img.name,
         metadata: await fileMetadataAsync(__pathToGallery +`/img/` + req.files.img.name)
+        [userId]
     });
 
     let result = customInsertOne(image)
@@ -75,5 +79,25 @@ export async function saveAllImage() {
         }
 
 
+
+}
+
+async function getUserIdFromToken(req:Request){
+
+    const tokenKey = '1a2b-3c4d-5e6f-7g8h'
+    let userId
+    if (req.headers.authorization) {
+        jwt.verify(
+            req.headers.authorization.split(' ')[1], tokenKey, (err, payload) => {
+                if (err) console.log(err)
+                else if (payload) {
+                     userId = payload.id
+                    console.log("userUdfdsf+ "+userId)
+
+                }
+            }
+        )
+    }
+    return userId
 
 }
