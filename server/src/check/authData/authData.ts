@@ -11,7 +11,7 @@ export async function checkAuthData(authData) {
 
     userPresenceInDb = await userModel.findOne({email: userEmailFromQuery});
     const userId=userPresenceInDb._id
-
+    console.log("userIdInAuth"+userId)
     /*
      * If user presence in db check password
      */

@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import {imageModel} from "../DbModels/Models.js";
+import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
 
 
 /*
@@ -14,11 +15,15 @@ export function getHandler(request: Request, response: Response): void {
 async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
     let pageNumber = Number(request.query.page)
     let limit = Number(request.query.limit)
+    const userIdFromRequest = await getUserIdFromToken(request)
     let imagePathArray: Array<string> = []  //img path array
 
     try {
         let total = Math.ceil(Number(Number(await imageModel.count()) / limit))
-        let result = await imageModel.find().lean().skip(Number((pageNumber - 1) * limit)).limit(limit)
+        let result = await imageModel.find(
+            {
+                $or: [{userId: userIdFromRequest}, {userId: 'allUsers'}]
+            }).lean().skip(Number((pageNumber - 1) * limit)).limit(limit)
 
         for (let file of result) {
             // @ts-ignore

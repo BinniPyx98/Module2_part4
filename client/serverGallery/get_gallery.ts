@@ -16,6 +16,7 @@ if (clickOnButtonUpload) {
 async function Upload(file: any) {
     let formData = new FormData();
     formData.append('img', file.files[0]);
+    let token = (localStorage.getItem('tokenData'));
 
     if (!file) {
         console.log('not file');
@@ -24,6 +25,7 @@ async function Upload(file: any) {
             method: 'POST',
             headers: {
                 'Access-Control-Allow-Methods': 'POST',
+                'Authorization': token
             },
             body: formData
         })
