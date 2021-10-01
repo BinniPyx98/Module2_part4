@@ -70,7 +70,7 @@ export async function getGallery(): Promise<void> {
     let resolve = await fetch(getUrl(), {
         method: "GET",
         headers: {
-            'Authorization': token
+            Authorization: `Bearer ${token}`
         }
     })
 

@@ -7,7 +7,7 @@ import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
  * work aster user do get request on http://localhost:5400/gallery?page=<pageNumber>&filter=<filter>
  */
 export async function getHandler(request: Request, response: Response) {
-
+    console.log('Get')
   let dbResult=await checkFilterAndFindInDb(request)
     await createGalleryObjectAndSendResponse(request,dbResult,response )
 

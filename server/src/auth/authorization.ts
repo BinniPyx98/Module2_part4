@@ -1,21 +1,16 @@
-import {checkAuthData} from "../check/authData/authData.js";
 import {Request, Response} from "express";
 
-import {userModel} from "../DbModels/Models";
 /*
  * If checkAuthData success, send token to user
  */
-export async function authorization(request: Request, response: Response) {
+export async function authorization(request: Request, response: Response, authResult2) {
 
-    let authData = request.body;
-    let authResult = await checkAuthData(authData);
+    let authResult = await authResult2
+    console.log('log aut data ' + authResult.data);
 
-    console.log(authResult.data);
-
-    if(authResult.error===false) {
+    if (authResult.error === false) {
         response.status(200).send(JSON.stringify(authResult.data));
-    }
-    else{
+    } else {
         response.status(401).send(JSON.stringify(authResult.data));
     }
 
