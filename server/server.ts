@@ -6,6 +6,8 @@ import  fileUpload from 'express-fileupload';
 import express from 'express';
 import config from 'config';
 
+import passport from 'passport'
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -26,11 +28,15 @@ app.use(fileUpload({}));
 //app.use('*',checkTokenAndOptionsRequest)
 app.use("/auth", auth);
 app.use("/", home);
-app.use("/",registration)
+app.use("/registration",registration)
 app.use("/gallery", gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(express.static(config.get('ClientPath')));
 app.use('/img', express.static( 'src/gallery/img'));
 
-
+app.post('/test',
+    passport.authenticate('local', { failureRedirect: '/' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 export default app

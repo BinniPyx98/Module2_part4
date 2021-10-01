@@ -10,11 +10,16 @@
 	<form method="post" id="form" >
 		Логин: <input  type="text" name="user" id="email" value="asergeev@flo.team"/><br>
 		Пароль: <input type="password" name="password" id="pass" title="222" value="jgF5tn4F"><br>
-		<button type="button" id="logIn" >Войти</button>
+		<button type="button" id="logIn" >SingUp</button>
 	</form>
 	<form  method="post" enctype="multipart/form-data" >
 		Upload: <input type="file" id="uploadFile" name="uploadFile">
 		<button type="button" id="uploadButton">Upload</button>
+	</form>
+	<form method="post" id="registration" >
+		Логин: <input  type="text" name="user" id="userEmail" value="asergeev@flo.team"/><br>
+		Пароль: <input type="password" name="password" id="userPassword" title="222" value="jgF5tn4F"><br>
+		<button type="button" id="SingIn" >SingIn</button>
 	</form>
 </div>
 <div class="NextBack">
@@ -23,10 +28,13 @@
 	</div>
 	<div>
 		<button type="button" id="back">Back</button>
+		<button type="button" id="filterAll">DisplayAllImage</button>
+		<button type="button" id="filterMy">DisplayMyImage</button>
 	</div>
 </div>
 <div id="gallery"></div>
 <script type="module" src="authorization/auth.js"></script>
+<script type="module" src="registration/registration.js"></script>
 <script>var exports = {};</script>
 
 </body>
