@@ -2,7 +2,7 @@ import {userModel} from "../DbModels/Models.js";
 import {Request, Response} from "express";
 import {sendErrorMessage} from "../errorMessage/sendErrorMessage.js";
 import {logger} from "../logger/logger.js";
-
+import crypto from 'crypto'
 async function registration (request: Request, response: Response)  {
 
     let authData = request.body;
@@ -12,6 +12,7 @@ async function registration (request: Request, response: Response)  {
         sendErrorMessage(response, {errorMessage: "This email address is already in use."})
     } else {
         const newUser = createNewUser(authData);
+
         addUserInDb(newUser)
         response.sendStatus(200);
 
@@ -21,10 +22,14 @@ async function registration (request: Request, response: Response)  {
 
 const createNewUser = (authData) => {
     const [userPasswordFromQuery, userEmailFromQuery] = [authData.password, authData.email]
+    let hashPass = crypto.createHash('sha256').update(userPasswordFromQuery).digest('hex');
+
+
+
 
     const newUser = new userModel( {
         email: userEmailFromQuery,
-        password: userPasswordFromQuery
+        password: hashPass
     })
 
     return newUser
@@ -41,7 +46,6 @@ async function checkUserInDb(authData) {
 }
 
 function addUserInDb(newUser){
-
 
     newUser.save(function (err, DbResult) {
 

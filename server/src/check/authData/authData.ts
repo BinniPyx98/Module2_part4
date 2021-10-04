@@ -14,7 +14,6 @@ export async function checkAuthData(authData) {
     /*
      * If user presence in db check password
      */
-    console.log(dbResult)
     if (dbResult) {
 
         if (dbResult.password === userPasswordFromQuery) {

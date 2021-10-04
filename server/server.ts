@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 import auth from './routes/auth.js' ;
 import gallery from './routes/gallery.js';
 import home from './routes/home.js';
-import checkTokenAndOptionsRequest from './middlewares/checkTokenAndOptionsRequest.js'
+import checkTokenAndOptionsRequest from './middlewares/checkOptionsRequest.js'
 import registration from './routes/registration.js'
 
 const app = express();
@@ -40,6 +40,7 @@ let LocalStrategy = strategy.Strategy
 
 import JWTstrategy, {VerifiedCallback} from 'passport-jwt';
 import {ExtractJwt} from 'passport-jwt';
+import crypto from "crypto";
 
 
 app.use(passport.initialize())
@@ -49,7 +50,8 @@ passport.use('login', new LocalStrategy({
         passwordField: 'password'
     },
     async function (username, password, done) {
-        let authResult=await checkAuthData({email:username,password:password})
+        let hashPass = crypto.createHash('sha256').update(password).digest('hex');
+        let authResult=await checkAuthData({email:username,password:hashPass})
         return done(null, authResult);
     }
 ));
@@ -67,7 +69,7 @@ passport.use( new JWTstrategy.Strategy({
     }
 }))
 
-//app.use('*',checkTokenAndOptionsRequest)
+app.use('*',checkTokenAndOptionsRequest)
 app.use("/auth", auth);
 app.use("/", home);
 app.use("/registration", registration)

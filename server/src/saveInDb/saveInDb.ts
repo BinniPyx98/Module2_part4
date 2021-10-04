@@ -3,7 +3,7 @@ import {logger} from "../logger/logger.js";
 import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
-import {imageModel, userModel} from "../DbModels/Models.js";
+import {imageModel} from "../DbModels/Models.js";
 import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
 
 /*
@@ -74,7 +74,7 @@ export async function saveAllImage() {
         let image = new imageModel({
             path: `/img/` + file,
             metadata: await fileMetadataAsync(__pathToGallery + `/img/` + file),
-            userId:'allUsers'
+            userId: 'allUsers'
 
         });
         customInsertOne(image)

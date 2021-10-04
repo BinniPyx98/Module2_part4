@@ -1,7 +1,5 @@
 import express, {NextFunction, Request, Response} from "express";
-import {checkToken} from "../src/check/token/token.js";
 import {requestLogging} from "../src/logger/requestLogging/requestLogging.js";
-import {logger} from '../src/logger/logger.js'
 const router = express.Router()
 
 /*
@@ -14,24 +12,8 @@ router.all('*', (request: Request, response: Response, next: NextFunction) => {
         let responseWithAHeader = setHeaderForOptions(response)
 
         responseWithAHeader.end()
+        next()
     }
-    /*
-     *  check token
-     */
-    // (async () => {
-    //     let result = await checkToken(request, response)
-    //
-    //     if (result) {
-    //         logger.info(`User ${result._id} has token`)
-    //         next()
-    //     } else {
-    //         logger.info(`User not found by token `)
-    //         response.status(401).send({errorMessage: 'not token'})
-    //     }
-    //
-    //
-    // })()
-
 next()
 });
 

@@ -197,6 +197,19 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
+
+bcrypto@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/bcrypto/-/bcrypto-5.4.0.tgz#4046f0c44a4b301eff84de593b4f86fce8d91db2"
+  integrity sha512-KDX2CR29o6ZoqpQndcCxFZAtYA1jDMnXU3jmCfzP44g++Cu7AHHtZN/JbrN/MXAg9SLvtQ8XISG+eVD9zH1+Jg==
+  dependencies:
+    bufio "~1.0.7"
+    loady "~0.0.5"
+
 bluebird@^2.10.2:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
@@ -261,6 +274,11 @@ buffer@^5.6.0:
   dependencies:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
+
+bufio@~1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/bufio/-/bufio-1.0.7.tgz#b7f63a1369a0829ed64cc14edf0573b3e382a33e"
+  integrity sha512-bd1dDQhiC+bEbEfg56IdBv7faWa6OipMs/AFFFvtFnB3wAYjlwQpQRZ0pm6ZkgtfL0pILRXhKxOiQj6UzoMR7A==
 
 busboy@^0.3.1:
   version "0.3.1"
@@ -363,6 +381,11 @@ cors@^2.8.5:
   dependencies:
     object-assign "^4"
     vary "^1"
+
+crypto@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/crypto/-/crypto-1.0.1.tgz#2af1b7cad8175d24c8a1b0778255794a21803037"
+  integrity sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -995,6 +1018,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
+
+loady@~0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/loady/-/loady-0.0.5.tgz#b17adb52d2fb7e743f107b0928ba0b591da5d881"
+  integrity sha512-uxKD2HIj042/HBx77NBcmEPsD+hxCgAtjEWlYNScuUjIsh/62Uyu39GOR68TBR68v+jqDL9zfftCWoUo4y03sQ==
 
 lodash.includes@^4.3.0:
   version "4.3.0"

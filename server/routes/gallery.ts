@@ -3,7 +3,7 @@ const router = express.Router()
 import {Request, Response} from "express";
 import {postImageHandler} from "../src/uploadImage/postImageHandler.js";
 import {getHandler} from "../src/gallery/getGallery.js";
-import checkTokenAndOptionsRequest from "../middlewares/checkTokenAndOptionsRequest.js";
+import checkTokenAndOptionsRequest from "../middlewares/checkOptionsRequest.js";
 
 
 /*
