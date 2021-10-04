@@ -1,21 +1,18 @@
-import {checkAuthData} from "../check/authData/authData.js";
 import {Request, Response} from "express";
 
 /*
  * If checkAuthData success, send token to user
  */
-export async function authorization(request: Request, response: Response) {
+export async function authorization(request: Request, response: Response, user) {
 
-    let authData = request.body;
-    let authResult = await checkAuthData(authData);
-
-    console.log(authResult.data);
-
-    if(authResult.error===false) {
+    let authResult =  user
+    console.log(authResult.error)
+    if (authResult.error === false) {
         response.status(200).send(JSON.stringify(authResult.data));
-    }
-    else{
+    } else {
         response.status(401).send(JSON.stringify(authResult.data));
     }
 
+
 }
+

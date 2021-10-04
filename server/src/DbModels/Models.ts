@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 let UsersSchema = new mongoose.Schema({
     email: String,
@@ -7,7 +7,8 @@ let UsersSchema = new mongoose.Schema({
 
 let ImageSchema = new mongoose.Schema({
     path: String,
-    metadata: Object
+    metadata: Object,
+    userId: String
 }, {collection: 'image'})
 
 

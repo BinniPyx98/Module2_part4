@@ -4,16 +4,19 @@ import {readdir} from "fs/promises";
 import {__pathToGallery} from "../gallery/pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
 import {imageModel} from "../DbModels/Models.js";
-
+import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
 
 /*
  * work after user request on upload file to the server
  */
 export async function saveImgInDb(req: Request, res: Response) {
 
+    const userId = await getUserIdFromToken(req)
+
     let image = new imageModel({
-        path: `/img/page${req.query.page}/` + req.files.img.name,
-        metadata: await fileMetadataAsync(__pathToGallery +`/img/` + req.files.img.name)
+        path: `/img/` + req.files.img.name,
+        metadata: await fileMetadataAsync(__pathToGallery + `/img/` + req.files.img.name),
+        userId: userId
     });
 
     let result = customInsertOne(image)
@@ -21,7 +24,7 @@ export async function saveImgInDb(req: Request, res: Response) {
     if (result) {
         res.status(200).send({message: "img was add"})
     } else {
-        res.status(500).send({errorMessage:"img exist"})
+        res.status(500).send({errorMessage: "img exist"})
     }
 }
 
@@ -65,15 +68,18 @@ function insertImg(image) {
  */
 export async function saveAllImage() {
 
-        const files = await readdir(__pathToGallery + `/img`);
-        for (const file of files) {
-            let image = new imageModel({
-                path: `/img/` + file,
-                metadata: await fileMetadataAsync(__pathToGallery +`/img/` + file)
-            });
-            customInsertOne(image)
-        }
+    const files = await readdir(__pathToGallery + `/img`);
 
+    for (const file of files) {
+        let image = new imageModel({
+            path: `/img/` + file,
+            metadata: await fileMetadataAsync(__pathToGallery + `/img/` + file),
+            userId: 'allUsers'
+
+        });
+        customInsertOne(image)
+    }
 
 
 }
+

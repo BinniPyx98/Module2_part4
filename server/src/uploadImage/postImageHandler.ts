@@ -2,6 +2,7 @@ import {logger} from '../logger/logger.js';
 import fs from 'fs'
 import {Request, Response} from "express";
 import {saveImgInDb} from "../saveInDb/saveInDb.js";
+import {__pathToGallery} from "../gallery/pathToGallery.js";
 
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
@@ -32,7 +33,8 @@ export function postImageHandler(request: Request, response: Response): void {
  function trySaveToDir( imageName: String, Image: Buffer, response) {
     try {
 
-        fs.writeFile(`./img/${imageName}`, Image, {flag:'wx'},() => {
+        fs.writeFile(`${__pathToGallery}/img/${imageName}`, Image, {flag:'wx'},(err) => {
+            console.log(err)
             logger.info({message: 'Image success saved in dir'})
         })
 
@@ -44,7 +46,7 @@ export function postImageHandler(request: Request, response: Response): void {
 
 }
 
-function trySaveToMongoDb(request, response) {
+function trySaveToMongoDb(request:Request, response:Response) {
     try {
       saveImgInDb(request, response)
 

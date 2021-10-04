@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getGallery } from "../gallery/get_gallery.js";
+import { getGallery } from "../serverGallery/get_gallery.js";
 /*
 Catch click on button "LogIn" and start function LogIn
  */

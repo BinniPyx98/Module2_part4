@@ -1,4 +1,4 @@
-import {getGallery} from "../gallery/get_gallery.js";
+import {getGallery} from "../serverGallery/get_gallery.js";
 
 /*
 Catch click on button "LogIn" and start function LogIn

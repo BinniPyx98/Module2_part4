@@ -8,21 +8,20 @@ export async function checkAuthData(authData) {
 
     const [userPasswordFromQuery, userEmailFromQuery] = [authData.password, authData.email]
     let userPresenceInDb;
-
-    userPresenceInDb = await userModel.findOne({email: userEmailFromQuery});
-    const userId=userPresenceInDb.__id
+    let dbResult;
+    dbResult = await userModel.findOne({email: userEmailFromQuery});
 
     /*
      * If user presence in db check password
      */
-    if (userPresenceInDb) {
+    if (dbResult) {
 
-        if (userPresenceInDb.password === userPasswordFromQuery) {
+        if (dbResult.password === userPasswordFromQuery) {
             logger.info('successful authorization');
             userPresenceInDb = {
                 error: false,
                 data: {
-                    token: jwt.sign({id: userId}, tokenKey),
+                    token: jwt.sign({id: dbResult._id}, tokenKey),
                 }
             };
         }

@@ -1,26 +1,29 @@
 import {Request, Response} from "express";
 import {imageModel} from "../DbModels/Models.js";
+import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
+import {checkFilterAndFindInDb} from "../checkFilterAndFindImageInDb/checkFilterAndFindInDb.js";
 
 
 /*
- * work aster user do get request on http://localhost:5400/gallery?page=<pageNumber>
+ * work aster user do get request on http://localhost:5400/gallery?page=<pageNumber>&filter=<filter>
  */
-export function getHandler(request: Request, response: Response): void {
-
-    createGalleryObjectAndSendResponse(response, request)
+export async function getHandler(request: Request, response: Response) {
+    let dbResult = await checkFilterAndFindInDb(request)
+    await createGalleryObjectAndSendResponse(request, dbResult, response)
 
 }
 
-async function createGalleryObjectAndSendResponse(response: Response, request: Request) {
+
+async function createGalleryObjectAndSendResponse(request: Request, dbResult, response: Response) {
+
     let pageNumber = Number(request.query.page)
     let limit = Number(request.query.limit)
     let imagePathArray: Array<string> = []  //img path array
 
     try {
-        let total = Math.ceil(Number(Number(await imageModel.count()) / limit))
-        let result = await imageModel.find().lean().skip(Number((pageNumber - 1) * limit)).limit(limit)
+        let total = Math.ceil(Number(dbResult.img.length) / limit)
 
-        for (let file of result) {
+        for (let file of dbResult.result) {
             // @ts-ignore
             imagePathArray.push(String(file.path))
         }
