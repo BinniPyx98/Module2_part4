@@ -13,7 +13,6 @@ if (clickOnButtonLogIn) {
 }
 
 async function registration() {
-    console.log('registr')
     let validationResult: boolean = null;
     let regexp: RegExp = /^.+@.+\..+$/igm;
     let regexpPass: RegExp = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,}$/;

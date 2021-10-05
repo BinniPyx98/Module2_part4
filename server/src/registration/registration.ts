@@ -1,16 +1,17 @@
-import {userModel} from "../DbModels/Models.js";
 import {Request, Response} from "express";
 import {sendErrorMessage} from "../errorMessage/sendErrorMessage.js";
 import {logger} from "../logger/logger.js";
 import crypto from 'crypto'
+import {userModel} from "../DbModels/UsersSchema.js";
 async function registration (request: Request, response: Response)  {
-
     let authData = request.body;
 
     const userExist = await checkUserInDb(authData)
     if (userExist) {
+        logger.info('This email address is already in use.')
         sendErrorMessage(response, {errorMessage: "This email address is already in use."})
     } else {
+        console.log('Error test')
         const newUser = createNewUser(authData);
 
         addUserInDb(newUser)

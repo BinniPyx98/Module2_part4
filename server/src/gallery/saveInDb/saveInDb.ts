@@ -1,10 +1,10 @@
 import {Request, Response} from "express";
-import {logger} from "../logger/logger.js";
+import {logger} from "../../logger/logger.js";
 import {readdir} from "fs/promises";
-import {__pathToGallery} from "../gallery/pathToGallery.js";
+import {__pathToGallery} from "../pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
-import {imageModel} from "../DbModels/Models.js";
-import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
+import {getUserIdFromToken} from "../../getUserIdFromToken/getUserIdFromToken.js";
+import {imageModel} from "../../DbModels/ImageSchema.js";
 
 /*
  * work after user request on upload file to the server

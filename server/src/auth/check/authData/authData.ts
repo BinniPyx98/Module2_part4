@@ -1,10 +1,11 @@
-import {logger} from '../../logger/logger.js';
-import {userModel} from "../../DbModels/Models.js";
+import {logger} from '../../../logger/logger.js';
 import jwt from 'jsonwebtoken'
-
+import config from 'config'
+import {userModel} from "../../../DbModels/UsersSchema.js";
 export async function checkAuthData(authData) {
 
-    const tokenKey = '1a2b-3c4d-5e6f-7g8h'
+    const tokenKey =   config.get('secretOrKey')
+
 
     const [userPasswordFromQuery, userEmailFromQuery] = [authData.password, authData.email]
     let userPresenceInDb;
