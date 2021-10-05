@@ -1,6 +1,7 @@
 import {Request} from "express";
-import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
-import {imageModel} from "../DbModels/Models.js";
+import {getUserIdFromToken} from "../../getUserIdFromToken/getUserIdFromToken.js";
+import {imageModel} from "../../DbModels/ImageSchema.js";
+
 
 export async function checkFilterAndFindInDb(request: Request) {
 

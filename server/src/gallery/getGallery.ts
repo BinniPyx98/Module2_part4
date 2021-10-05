@@ -1,7 +1,5 @@
 import {Request, Response} from "express";
-import {imageModel} from "../DbModels/Models.js";
-import {getUserIdFromToken} from "../getUserIdFromToken/getUserIdFromToken.js";
-import {checkFilterAndFindInDb} from "../checkFilterAndFindImageInDb/checkFilterAndFindInDb.js";
+import {checkFilterAndFindInDb} from "./checkFilterAndFindImageInDb/checkFilterAndFindInDb.js";
 
 
 /*

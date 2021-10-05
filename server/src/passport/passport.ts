@@ -1,6 +1,6 @@
 import passport from "passport";
 import crypto from "crypto";
-import {checkAuthData} from "../check/authData/authData";
+import {checkAuthData} from "../auth/check/authData/authData";
 import JWTstrategy, {VerifiedCallback} from 'passport-jwt';
 import {ExtractJwt} from 'passport-jwt';
 import strategy from 'passport-local'

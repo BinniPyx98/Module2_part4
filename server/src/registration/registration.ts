@@ -1,8 +1,8 @@
-import {userModel} from "../DbModels/Models.js";
 import {Request, Response} from "express";
 import {sendErrorMessage} from "../errorMessage/sendErrorMessage.js";
 import {logger} from "../logger/logger.js";
 import crypto from 'crypto'
+import {userModel} from "../DbModels/UsersSchema.js";
 async function registration (request: Request, response: Response)  {
     let authData = request.body;
 

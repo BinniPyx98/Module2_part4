@@ -1,15 +1,24 @@
-import {logger} from '../logger/logger.js';
+import {logger} from '../../logger/logger.js';
 import fs from 'fs'
 import {Request, Response} from "express";
 import {saveImgInDb} from "../saveInDb/saveInDb.js";
-import {__pathToGallery} from "../gallery/pathToGallery.js";
-
+import {__pathToGallery} from "../pathToGallery.js";
 let galleryPageNumber: Number = 1;
 let imageName: String = '';
+
+
 
 /*
  * upload image in dir and db
  */
+declare  module 'express' {
+    interface Request {
+        body: any // Actually should be something like `multer.Body`
+        files: any // Actually should be something like `multer.Files`
+    }
+}
+
+
 export function postImageHandler(request: Request, response: Response): void {
 
     let fileData = request.files.img;

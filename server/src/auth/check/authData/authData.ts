@@ -1,7 +1,7 @@
-import {logger} from '../../logger/logger.js';
+import {logger} from '../../../logger/logger.js';
 import jwt from 'jsonwebtoken'
 import config from 'config'
-import {userModel} from "../../DbModels/UsersSchema.js";
+import {userModel} from "../../../DbModels/UsersSchema.js";
 export async function checkAuthData(authData) {
 
     const tokenKey =   config.get('secretOrKey')
