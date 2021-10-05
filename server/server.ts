@@ -20,24 +20,19 @@ import home from './routes/home.js';
 import registration from './routes/registration.js'
 
 const app = express();
+
 app.use(cors({
     origin: '*',
     credentials: true,
 }));
+
 const swaggerDocument = YAML.load(path.join(__dirname, './docs/openapi/api.yml'));
 
 app.use(express.json())
 app.use(fileUpload({}));
 
-import {checkAuthData} from "./src/check/authData/authData.js";
-
 
 import passport from 'passport';
-
-
-
-
-
 app.use(passport.initialize())
 
 
