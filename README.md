@@ -7,10 +7,19 @@
 
 
 <h3>Запуск проекта</h3>
-   <p style="text-indent: 25px;"> Выполнить команду npm install в корне проекта 
+
+
+   
+
+   <p style="text-indent: 25px;"> Выполнить команду npm install в корне проекта </p>
    <p style="text-indent: 25px;"> Выполнить команду npm install в папке server</p>
    <p style="text-indent: 25px;"> Выполнить команду npm install в папке  client</p>
-   <p style="text-indent: 25px;"> В файле server/config/default.json  найти свойство ClientPath и изменить абсолютный путь на свой  к папке клиент</p>
+   <p style="text-indent: 25px;"> В файле server/config/default.json добавить три свойства пример: 
+<ul>
+<li>"ClientPath": "/Users/pm/Desktop/Astra/projects/module2/part5/Module2_part4/build"</li>
+<li>"MongoUrl": "mongodb+srv://.net/nameDb?retryWrites=true&w=majority"</li>
+<li>"secretOrKey": "1ab-3c4-5ef"</li>
+</ul></p>
    <p style="text-indent: 25px;"> В корне проекта(dir name FullProject) в терминале написать команду tsc </p>
    <p style="text-indent: 25px;"> В папке client в терминале написать команду tsc </p>
    <p style="text-indent: 25px;">Запустить файл index.js в папке server. nodemon index.js</p>

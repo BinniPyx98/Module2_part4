@@ -5,3 +5,4 @@ client/node_modules
 node_modules
 *.js
 .js.map
+server/config/default.json
