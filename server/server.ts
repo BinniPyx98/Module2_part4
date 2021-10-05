@@ -17,7 +17,6 @@ const __dirname = dirname(__filename);
 import auth from './routes/auth.js' ;
 import gallery from './routes/gallery.js';
 import home from './routes/home.js';
-import checkTokenAndOptionsRequest from './middlewares/checkOptionsRequest.js'
 import registration from './routes/registration.js'
 
 const app = express();
@@ -42,7 +41,6 @@ import passport from 'passport';
 app.use(passport.initialize())
 
 
-app.use('*',checkTokenAndOptionsRequest)
 app.use("/auth", auth);
 app.use("/", home);
 app.use("/registration", registration)
