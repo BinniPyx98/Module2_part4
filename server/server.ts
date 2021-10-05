@@ -58,7 +58,7 @@ passport.use('login', new LocalStrategy({
 
 
 passport.use( new JWTstrategy.Strategy({
-     secretOrKey: '1a2b-3c4d-5e6f-7g8h',
+     secretOrKey: config.get('secretOrKey'),
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 }, async (token, done: VerifiedCallback) => {
     console.log('token on use '+token.id)
