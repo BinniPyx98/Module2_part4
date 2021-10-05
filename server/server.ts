@@ -76,6 +76,7 @@ app.use("/registration", registration)
 app.use("/gallery", passport.authenticate('jwt', { session: false }),gallery);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(express.static(config.get('ClientPath')));
+app.use(express.static(`${config.get('ClientPath')}/..`));
 app.use('/img', express.static('src/gallery/img'));
 
 

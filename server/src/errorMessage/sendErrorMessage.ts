@@ -5,6 +5,5 @@ interface ErrorMessage {
 }
 
 export function sendErrorMessage(response: Response, error: ErrorMessage) {
-
     response.send({error})
 }
