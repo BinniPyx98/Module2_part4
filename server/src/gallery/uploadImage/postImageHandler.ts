@@ -45,12 +45,14 @@ export function postImageHandler(request: Request, response: Response): void {
         fs.writeFile(`${__pathToGallery}/img/${imageName}`, Image, {flag:'wx'},(err) => {
             console.log(err)
             logger.info({message: 'Image success saved in dir'})
+            throw new Error('fail writeFile')
         })
 
     } catch (err) {
         console.log(err)
         logger.info({errorMessage: 'file exist'})
         response.status(500).send({errorMessage: 'file exist'})
+        throw new Error('fail try writeFile')
     }
 
 }
@@ -61,7 +63,9 @@ function trySaveToMongoDb(request:Request, response:Response) {
 
     } catch (err) {
         console.log(err)
-        logger.info({errorMessage: 'postImageHandler: error save to db'})
-        response.status(500).send({errorMessage: 'postImageHandler: error save to db'})
+        logger.info({errorMessage: 'trySaveToMongoDb: error save to db'})
+        response.status(500).send({errorMessage: 'trySaveToMongoDb: error save to db'})
+        throw new Error('fail trySaveToMongoDb')
+
     }
 }
