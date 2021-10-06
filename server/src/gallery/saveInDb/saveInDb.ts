@@ -5,6 +5,7 @@ import {__pathToGallery} from "../pathToGallery.js";
 import {fileMetadataAsync} from 'file-metadata';
 import {getUserIdFromToken} from "../../getUserIdFromToken/getUserIdFromToken.js";
 import {imageModel} from "../../DbModels/ImageSchema.js";
+import mongoose from "mongoose";
 
 /*
  * work after user request on upload file to the server
@@ -74,7 +75,7 @@ export async function saveAllImage() {
         let image = new imageModel({
             path: `/img/` + file,
             metadata: await fileMetadataAsync(__pathToGallery + `/img/` + file),
-            userId: 'allUsers'
+            userId: new mongoose.mongo.ObjectId('615aae0509d876c365438bf0')
 
         });
         customInsertOne(image)

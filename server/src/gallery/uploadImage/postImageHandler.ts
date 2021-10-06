@@ -43,9 +43,8 @@ export function postImageHandler(request: Request, response: Response): void {
     try {
 
         fs.writeFile(`${__pathToGallery}/img/${imageName}`, Image, {flag:'wx'},(err) => {
-            console.log(err)
+            if(err)   throw new Error('fail writeFile')
             logger.info({message: 'Image success saved in dir'})
-            throw new Error('fail writeFile')
         })
 
     } catch (err) {
