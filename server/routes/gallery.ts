@@ -9,17 +9,10 @@ import {getHandler} from "../src/gallery/getGallery.js";
  * Upload image to the server
  */
 
-router.post('/',(request: Request, response: Response) => {
-
-       postImageHandler(request,response);
-
-})
+router.post('/', postImageHandler)
 
 /*
  * Sending gallery to client
  */
-router.get('/', (request: Request, response: Response) => {
-   getHandler(request,response);
-})
-
+router.get('/', getHandler )
 export default router

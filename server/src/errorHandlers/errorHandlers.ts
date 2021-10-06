@@ -1,6 +1,8 @@
+import {logger} from "../logger/logger.js";
 
 export function logErrors (err, req, res, next) {
     console.error(err.stack)
+    logger.info(err.stack)
     next(err)
 }
 
