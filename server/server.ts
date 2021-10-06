@@ -6,6 +6,7 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import express from 'express';
 import config from 'config';
+import {clientErrorHandler, errorHandler, logErrors} from "./src/errorHandlers/errorHandlers.js";
 
 
 import {fileURLToPath} from 'url';
@@ -31,9 +32,10 @@ const swaggerDocument = YAML.load(path.join(__dirname, './docs/openapi/api.yml')
 app.use(express.json())
 app.use(fileUpload({}));
 
-
+import {usePassport} from "./src/passport/passport.js";
+ usePassport();
 import passport from 'passport';
-app.use(passport.initialize())
+app.use(passport.initialize());
 
 
 app.use("/auth", auth);
@@ -44,6 +46,12 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(express.static(config.get('ClientPath')));
 app.use(express.static(`${config.get('ClientPath')}/..`));
 app.use('/img', express.static('src/gallery/img'));
+
+
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
+
 
 
 

@@ -26,7 +26,7 @@ export async function checkFilterAndFindInDb(request: Request) {
 async function getImageForResponse__ForFilterAll(userIdFromRequest, pageNumber, limit) {
     let imageFromDb = await imageModel.find(
         {
-            $or: [{userId: userIdFromRequest}, {userId: 'allUsers'}]
+            $or: [{userId: userIdFromRequest}, {userId: '615aae0509d876c365438bf0'}]
         }).lean().skip(Number((pageNumber - 1) * limit)).limit(limit)
 
 
@@ -46,7 +46,7 @@ async function getImageForResponse__ForFilterMyImage(userIdFromRequest, pageNumb
 async function getImageForTotal__ForFilterAll(userIdFromRequest) {
     let imgForTotal = await imageModel.find(
         {
-            $or: [{userId: userIdFromRequest}, {userId: 'allUsers'}]
+            $or: [{userId: userIdFromRequest}, {userId: '615aae0509d876c365438bf0'}]
         }).lean();
 
     return imgForTotal
